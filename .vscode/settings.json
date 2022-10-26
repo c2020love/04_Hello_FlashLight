@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "iosfwd": "cpp",
+        "streambuf": "cpp"
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}/include/glm"
+}
