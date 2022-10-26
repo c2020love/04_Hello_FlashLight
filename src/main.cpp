@@ -190,6 +190,7 @@ int main()
         cubeShader.setVec3("light.position",lightPos);
         cubeShader.setVec3("light.direction", 0.0f , 0.0f , -1.0f);
         cubeShader.setFloat("light.cutoff", glm::cos(glm::radians(12.5f))); //给cutoff一个余弦值，好用来比较那两个角度的大小
+        cubeShader.setFloat("light.outcutoff" , glm::cos(glm::radians(17.5f)));
         cubeShader.setVec3("viewPos", camera.Position);
         cubeShader.setVec3("light.ambient", 0.1f, 0.1f, 0.1f);
         cubeShader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f); // 将光照调暗了一些以搭配场景

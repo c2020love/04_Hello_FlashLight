@@ -19,6 +19,8 @@ struct Light
 	float constant;
 	float linear;
 	float quadratic;
+
+	float outcutoff;
 };
 
 in vec3 Normal;
@@ -57,6 +59,7 @@ void main()
 
 	diffuse *= attenuation;
 	specular *= attenuation;
+	ambient *= attenuation;
 
 	//放射光
 	vec3 emission =vec3( matrixlight * texture(material.raytexture , vec2(TexCoords.x , TexCoords.y + matrixmove)));
@@ -64,16 +67,15 @@ void main()
 	//计算theta值，并将其与切光角cutoff对比，来判断这个片段是否在聚光的内部
 
 	float theta = dot(lightDir ,normalize(-light.direction));
+	float epsilon = light.cutoff - light.outcutoff;		//内外角之间的距离
+	float intensity = clamp((theta - light.outcutoff)/epsilon , 0.0 , 1.0);	//平滑化clamp,使值处于0到1之间
+
+	diffuse *= intensity;
+	specular *= intensity;
 
 	vec3 result;
-	if(theta > light.cutoff)
-	{
-		result = (ambient + diffuse + specular) ;
-	}
-	else
-	{
-		result = light.ambient * vec3(texture(material.diffuse , TexCoords));
-	}
+	
+	result = (ambient + diffuse + specular) ;
 
 	//最终结果
 
