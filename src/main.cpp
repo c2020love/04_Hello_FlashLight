@@ -160,7 +160,7 @@ int main()
     */
     char *str1 = "D:\\opengl\\code\\RayCode\\04_Hello_FlashLight\\src\\sources\\wood.png";
     char *str2 = "D:\\opengl\\code\\RayCode\\04_Hello_FlashLight\\src\\sources\\iron.png";
-    char *str3 = "D:\\opengl\\code\\RayCode\\04_Hello_FlashLight\\src\\sources\\matrix.jpg";
+    char *str3 = "D:\\opengl\\code\\RayCode\\04_Hello_FlashLight\\src\\sources\\zuiyou.jpg";
     // std::cout<<str1<<std::endl<<str2<<std::endl;
     unsigned int diffuseMap = loadTexture(str1);
     unsigned int specularMap = loadTexture(str2);
@@ -187,8 +187,8 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //清除Z-Buffer缓冲
         // glBindTexture(GL_TEXTURE_2D,texture);
         cubeShader.use();
-        cubeShader.setVec3("light.position",lightPos);
-        cubeShader.setVec3("light.direction", 0.0f , 0.0f , -1.0f);
+        cubeShader.setVec3("light.position",camera.Position);
+        cubeShader.setVec3("light.direction", camera.Front);
         cubeShader.setFloat("light.cutoff", glm::cos(glm::radians(12.5f))); //给cutoff一个余弦值，好用来比较那两个角度的大小
         cubeShader.setFloat("light.outcutoff" , glm::cos(glm::radians(17.5f)));
         cubeShader.setVec3("viewPos", camera.Position);
@@ -206,9 +206,9 @@ int main()
         所以这一帧的速度需要变得更高来平衡渲染所花去的时间。使用这种方法时，无论你的电脑快还是慢，摄像机的速度都会相应平衡，
         这样每个用户的体验就都一样了*/
 
-        lightPos.x = sin(iTime) * cos(iTime) * 3.0f;
-        lightPos.y = sin(iTime) * sin(iTime) * 3.0f;
-        lightPos.z = cos(iTime) * 3.0f;
+        //lightPos.x = sin(iTime) * cos(iTime) * 3.0f;
+        //lightPos.y = sin(iTime) * sin(iTime) * 3.0f;
+        //lightPos.z = cos(iTime) * 3.0f;
 
         glm::mat4 project = glm::mat4(1.0f);
         project = glm::perspective(glm::radians(camera.Fov), (float)SWIDTH / (float)SHEIGHT, 0.1f, 100.0f);
